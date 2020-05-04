@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/main.css" />
+    <title>Data collector</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Collecting heighr</h1>
+      <h3>
+        Please fill the entires to get the population statistics on the height
+      </h3>
+      <form action="success.html" method="post">
+        <input
+          type="text"
+          name="email_name"
+          id=""
+          title="Your email will be safe with us"
+          placeholder="Enter your email address"
+          required
+        /><br />
+        <input
+          type="number"
+          name="height_name"
+          id=""
+          title="Your data will be safe with us"
+          placeholder="Enter your height in cm"
+          min="50"
+          max="300"
+          step="0.1"
+          required
+        /><br />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
