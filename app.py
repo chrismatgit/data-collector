@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from send_email import send_email
 
 # instantiate the object of the class flask
 app = Flask(__name__)
@@ -35,7 +36,8 @@ def success():
     if request.method == 'POST':
         email = request.form['email_name']
         height = request.form['height_name']
-        print(email, height)
+        # send email
+        send_email(email, height)
         # checking the duplication
         if db.session.query(Data).filter(Data.email_ == email).count() == 0:
 
