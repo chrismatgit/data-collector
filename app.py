@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request
-from flask.ext.sqlalchemy import SQLALchemy
+from flask_sqlalchemy import SQLAlchemy
 
 # instantiate the object of the class flask
 app = Flask(__name__)
 # configure the connection to the database
-app.config['SQL_ALCHEMY_URI'] = 'postgresql://postgres@localhost/height_collector'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/height_collector'
 # creating an SQL alchemy object for Flask app
-db = SQLALchemy(app)
+db = SQLAlchemy(app)
 
 
 class Data(db.Model):  # model from the sqlalchemy
@@ -36,9 +36,18 @@ def success():
         email = request.form['email_name']
         height = request.form['height_name']
         print(email, height)
+        # checking the duplication
+        if db.session.query(Data).filter(Data.email_ == email).count() == 0:
 
-        # rendering the success page
-        return render_template('success.html')
+            # add rows with sqlalchemy
+            data = Data(email, height)
+            db.session.add(data)
+            db.session.commit()
+
+            # rendering the success page
+            return render_template('success.html')
+        return render_template('index.html',
+                               text="Seems like we've got something from that email address already")
 
 
 # the script is being executed

@@ -12,6 +12,7 @@
       <h3>
         Please fill the entires to get the population statistics on the height
       </h3>
+      <div class="message">{{text | safe}}</div>
       <form action="{{url_for('success')}}" method="post">
         <input
           type="email"
