@@ -2,7 +2,7 @@ from email.mime.text import MIMEText
 import smtplib
 
 
-def send_email(email, height):
+def send_email(email, height, average_height, count):
     ''' Send email function with 2 @param (email, height)'''
     # make sure you the 'Allow less secure apps' in your gmail account
     from_email = "youremail@gmail.com"  # put your correct email address here
@@ -11,10 +11,11 @@ def send_email(email, height):
 
     # Message to be displayed
     subject = "Height data"
-    message = "Hey there, your height is <strong>%s</strong>." % height
+    message = "Hey there, your height is <strong>%s</strong>. <br> Average height of all is <strong>%s</strong> and that is calculated out <strong>%s</strong> of people <br>Thanks !!!" % (
+        height, average_height, count)
 
     # setting up the header of the email
-    msg = MIMEText(message, 'html')
+    msg = MIMEText(message, 'html')  # convert the text into html code
     msg['Subject'] = subject
     msg['To'] = to_email
     msg['From'] = from_email

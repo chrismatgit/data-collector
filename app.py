@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from send_email import send_email
+from sqlalchemy.sql import func
 
 # instantiate the object of the class flask
 app = Flask(__name__)
@@ -36,8 +37,7 @@ def success():
     if request.method == 'POST':
         email = request.form['email_name']
         height = request.form['height_name']
-        # send email
-        send_email(email, height)
+
         # checking the duplication
         if db.session.query(Data).filter(Data.email_ == email).count() == 0:
 
@@ -45,6 +45,17 @@ def success():
             data = Data(email, height)
             db.session.add(data)
             db.session.commit()
+
+            # calculate the average value
+            average_height = db.session.query(func.avg(Data.height_)).scalar()
+            # round out this number to one decimal point
+            average_height = round(average_height, 1)
+
+            # number of the collected value in the db
+            count = db.session.query(Data.height_).count()
+
+            # send email
+            send_email(email, height, average_height, count)
 
             # rendering the success page
             return render_template('success.html')
