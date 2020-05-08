@@ -13,28 +13,15 @@
         Please fill the entires to get the population statistics on the height
       </h3>
       <div class="message">{{text | safe}}</div>
-      <form action="{{url_for('success')}}" method="post">
-        <input
-          type="email"
-          name="email_name"
-          id=""
-          title="Your email will be safe with us"
-          placeholder="Enter your email address"
-          required
-        /><br />
-        <input
-          type="number"
-          name="height_name"
-          id=""
-          title="Your data will be safe with us"
-          placeholder="Enter your height in cm"
-          min="50"
-          max="300"
-          step="0.1"
-          required
-        /><br />
+      <form
+        action="{{url_for('success')}}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="file" /><br />
         <button type="submit">Submit</button>
       </form>
+      {% include btn%}
     </div>
   </body>
 </html>

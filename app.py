@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from send_email import send_email
 from sqlalchemy.sql import func
+from werkzeug.utils import secure_filename
 
 # instantiate the object of the class flask
 app = Flask(__name__)
@@ -38,32 +39,14 @@ def index():
 def success():
     # processing data if request is post
     if request.method == 'POST':
-        email = request.form['email_name']
-        height = request.form['height_name']
+        file = request.files['file']
+        # saving the file into our directory by adding a certain level of security
+        file.save(secure_filename("uploaded"+file.filename))
+        with open("uploaded"+file.filename, "a") as f:
+            f.write("Just got pissed")
 
-        # checking the duplication
-        if db.session.query(Data).filter(Data.email_ == email).count() == 0:
-
-            # add rows with sqlalchemy
-            data = Data(email, height)
-            db.session.add(data)
-            db.session.commit()
-
-            # calculate the average value
-            average_height = db.session.query(func.avg(Data.height_)).scalar()
-            # round out this number to one decimal point
-            average_height = round(average_height, 1)
-
-            # number of the collected value in the db
-            count = db.session.query(Data.height_).count()
-
-            # send email
-            send_email(email, height, average_height, count)
-
-            # rendering the success page
-            return render_template('success.html')
-        return render_template('index.html',
-                               text="Seems like we've got something from that email address already")
+        # rendering the success page
+        return render_template('index.html', btn="download.html")
 
 
 # the script is being executed
