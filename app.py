@@ -6,7 +6,10 @@ from sqlalchemy.sql import func
 # instantiate the object of the class flask
 app = Flask(__name__)
 # configure the connection to the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/height_collector'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost/height_collector'
+
+# heroku database creditentials
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres: // gbidvfwfujdfxa: 2b37f7a710abad85e0b15903c3cc14648268931d2db9ddbdc78ed0f1f8869fe3@ec2-54-81-37-115.compute-1.amazonaws.com: 5432/da06m423gtjbtf?sslmode=require'
 # creating an SQL alchemy object for Flask app
 db = SQLAlchemy(app)
 
