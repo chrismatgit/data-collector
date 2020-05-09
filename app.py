@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from flask_sqlalchemy import SQLAlchemy
 from send_email import send_email
 from sqlalchemy.sql import func
@@ -32,12 +32,13 @@ class Data(db.Model):  # model from the sqlalchemy
 @app.route('/')
 def index():
     # rendering the index page
-    return render_template('index.html')
+    return render_template('index.html', btn="")
 
 
 @app.route('/success', methods=['POST'])  # To post the data to the server
 def success():
     # processing data if request is post
+    global file
     if request.method == 'POST':
         file = request.files['file']
         # saving the file into our directory by adding a certain level of security
@@ -47,6 +48,12 @@ def success():
 
         # rendering the success page
         return render_template('index.html', btn="download.html")
+
+
+@app.route('/download')  # route to download the csv file
+def download():
+    # function to download the file
+    return send_file("uploaded"+file.filename, attachment_filename="yourfile.csv", as_attachment=True)
 
 
 # the script is being executed
