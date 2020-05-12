@@ -39,6 +39,7 @@ body {
   background-color: darkslategrey;
   margin: 3px;
   border-radius: 1px;
+  margin-left: auto;
 }
 
 .container p {

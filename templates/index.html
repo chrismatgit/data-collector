@@ -8,9 +8,10 @@
   </head>
   <body>
     <div class="container">
-      <h1>Collecting height</h1>
+      <h1>Super Geocoder</h1>
       <h3>
-        Please fill the entires to get the population statistics on the height
+        Please upload your CSV file. The values containing addresses should be
+        in a column named <em>address</em> or <em>Address</em>
       </h3>
       <div class="message">{{text | safe}}</div>
       <form
@@ -18,7 +19,7 @@
         method="POST"
         enctype="multipart/form-data"
       >
-        <input type="file" name="file" /><br />
+        <input type="file" name="file" />
         <button type="submit">Submit</button>
       </form>
       {% include btn ignore missing %}

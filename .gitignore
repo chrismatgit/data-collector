@@ -6,3 +6,4 @@ __pycache__
 .prod_env
 .coverage
 .pytest_cache
+.ipynb_checkpoints/
