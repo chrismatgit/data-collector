@@ -13,16 +13,17 @@
         Please upload your CSV file. The values containing addresses should be
         in a column named <em>address</em> or <em>Address</em>
       </h3>
-      <div class="message">{{text | safe}}</div>
       <form
-        action="{{url_for('success')}}"
+        action="{{url_for('success_tab')}}"
         method="POST"
         enctype="multipart/form-data"
       >
-        <input type="file" name="file" />
+        <input type="file" name="file" accept=".csv" />
         <button type="submit">Submit</button>
       </form>
-      {% include btn ignore missing %}
+      <div class="output">
+        {{text | safe}} {% include btn ignore missing %}
+      </div>
     </div>
   </body>
 </html>
